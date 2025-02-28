@@ -2,6 +2,43 @@
 
 $pdo = new PDO('sqlite:bdd/db.sqlite');
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupérer les données du formulaire
+    $nom_centre = $_POST['nom_centre'];
+    $numero_finess = $_POST['numero_finess'];
+    $site_web = $_POST['site_web'];
+    $adresse = $_POST['adresse'];
+    $code_postal = $_POST['code_postal'] === 'other' ? $_POST['new_code_postal'] : $_POST['code_postal'];
+    $ville = $_POST['ville'] === 'other' ? $_POST['new_ville'] : $_POST['ville'];
+    $telephone = $_POST['telephone'];
+    $mail = $_POST['mail'];
+    $modalite = $_POST['modalite'];
+    $jours = $_POST['jour'];
+    $heures_ouverture = $_POST['heure_ouverture'];
+    $heures_fermeture = $_POST['heure_fermeture'];
+
+    // Insérer les données dans la table Adresse si nécessaire
+    $stmt = $pdo->prepare("INSERT OR IGNORE INTO Adresse (code_postal, ville) VALUES (?, ?)");
+    $stmt->execute([$code_postal, $ville]);
+
+    // Insérer les données dans la table Centre
+    $stmt = $pdo->prepare("INSERT INTO Centre (numero_finess, Nom, site_web, numero_telephone, adresse_mail, adresse, code_postal) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$numero_finess, $nom_centre, $site_web, $telephone, $mail, $adresse, $code_postal]);
+
+    // Insérer les données dans la table Horaire
+    $stmt = $pdo->prepare("INSERT INTO Horaire (jour, horaire_ouverture, horaire_fermeture, numero_finess) VALUES (?, ?, ?, ?)");
+    for ($i = 0; $i < count($jours); $i++) {
+        $stmt->execute([$jours[$i], $heures_ouverture[$i], $heures_fermeture[$i], $numero_finess]);
+    }
+
+    // Insérer les données dans la table centre_modalite
+    $stmt = $pdo->prepare("INSERT INTO centre_modalite (numero_finess, id_modalite) VALUES (?, ?)");
+    $stmt->execute([$numero_finess, $modalite]);
+
+    header('Location: index.php');
+    exit();
+}
+
 $stmt = $pdo->prepare("SELECT * FROM Centre 
 JOIN Adresse ON Centre.code_postal = Adresse.code_postal");
 $stmt->execute();
@@ -121,8 +158,9 @@ $modalites = $stmt->fetchAll();
             </section>
 
             <button type="button" id="add-day" class="btn btn-secondary mt-4">Ajouter un autre jour</button>
+            <button type="submit" class="btn btn-primary mt-4">Ajouter un centre</button>
         </section>
-        <button type="submit" class="btn btn-primary mt-4">Ajouter</button>
+
     </form>
     <script src="Scripts/script.js"></script>
 </body>
