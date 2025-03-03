@@ -12,7 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ville = $_POST['ville'] === 'other' ? $_POST['new_ville'] : $_POST['ville'];
     $telephone = $_POST['telephone'];
     $mail = $_POST['mail'];
-    $modalite = $_POST['modalite'];
+    $modalites = $_POST['modalite'];
+    $coordonnee = $_POST['coordonnee'];
+    $horaires = $_POST['horaire'];
     $jours = $_POST['jour'];
     $heures_ouverture = $_POST['heure_ouverture'];
     $heures_fermeture = $_POST['heure_fermeture'];
@@ -22,18 +24,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$code_postal, $ville]);
 
     // Insérer les données dans la table Centre
-    $stmt = $pdo->prepare("INSERT INTO Centre (numero_finess, Nom, site_web, numero_telephone, adresse_mail, adresse, code_postal) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$numero_finess, $nom_centre, $site_web, $telephone, $mail, $adresse, $code_postal]);
+    $stmt = $pdo->prepare("INSERT INTO Centre (numero_finess, Nom, site_web, numero_telephone, adresse_mail, coordonnee_geographique, adresse, code_postal) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$numero_finess, $nom_centre, $site_web, $telephone, $mail, $coordonnee, $adresse, $code_postal]);
 
-    // Insérer les données dans la table Horaire
-    $stmt = $pdo->prepare("INSERT INTO Horaire (jour, horaire_ouverture, horaire_fermeture, numero_finess) VALUES (?, ?, ?, ?)");
+    // Insérer les nouveaux horaires dans la table Horaire
+    $stmt = $pdo->prepare("INSERT INTO Horaire (jour, horaire_ouverture, horaire_fermeture) VALUES (?, ?, ?)");
     for ($i = 0; $i < count($jours); $i++) {
-        $stmt->execute([$jours[$i], $heures_ouverture[$i], $heures_fermeture[$i], $numero_finess]);
+        if (!empty($jours[$i]) && !empty($heures_ouverture[$i]) && !empty($heures_fermeture[$i])) {
+            $stmt->execute([$jours[$i], $heures_ouverture[$i], $heures_fermeture[$i]]);
+            $horaires[] = $pdo->lastInsertId();
+        }
     }
 
-    // Insérer les données dans la table centre_modalite
+    // Insérer les données dans la table centre_horaire pour chaque horaire sélectionné
+    $stmt = $pdo->prepare("INSERT INTO centre_horaire (numero_finess, id_horaire) VALUES (?, ?)");
+    foreach ($horaires as $id_horaire) {
+        $stmt->execute([$numero_finess, $id_horaire]);
+    }
+
+    // Insérer les données dans la table centre_modalite pour chaque modalité sélectionnée
     $stmt = $pdo->prepare("INSERT INTO centre_modalite (numero_finess, id_modalite) VALUES (?, ?)");
-    $stmt->execute([$numero_finess, $modalite]);
+    foreach ($modalites as $modalite) {
+        $stmt->execute([$numero_finess, $modalite]);
+    }
 
     header('Location: index.php');
     exit();
@@ -47,6 +60,10 @@ $centres = $stmt->fetchAll();
 $stmt = $pdo->prepare("SELECT * FROM Modalite");
 $stmt->execute();
 $modalites = $stmt->fetchAll();
+
+$stmt = $pdo->prepare("SELECT * FROM Horaire");
+$stmt->execute();
+$horaires = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -131,12 +148,53 @@ $modalites = $stmt->fetchAll();
             <!-- Article contenant les modalités -->
             <article class="col-md-6">
                 <label for="modalite" class="form-label">Modalités :</label>
-                <select name="modalite" id="modalite" class="form-select">
-                    <option value="" selected disabled hidden>Veuillez séléctionnez une modalité...</option>
-                    <?php foreach ($modalites as $modalite): ?>
-                        <option value="<?= $modalite['id_modalite'] ?>"><?= $modalite['nom_modalite'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <!-- Dropdown pour les modalités -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Veuillez séléctionner une ou plusieurs modalité
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($modalites as $modalite): ?>
+                            <li class="form-check">
+                                <div class="form-check dropdown-item">
+                                    <input class="form-check-input" type="checkbox" name="modalite[]" id="modalite_<?= $modalite['id_modalite'] ?>" value="<?= $modalite['id_modalite'] ?>">
+                                    <label class="form-check-label" for="modalite_<?= $modalite['id_modalite'] ?>">
+                                        <?= $modalite['nom_modalite'] ?>
+                                    </label>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- Article contenant les coordonnées géographiques -->
+            <article class="col-md-6">
+                <label for="coordonnee" class="form-label">Latitude et Longitude:</label>
+                <input type="text" name="coordonnee" id="coordonnee" class="form-control">
+            </article>
+
+            <!-- Article contenant les horaires -->
+            <article class="col-md-6">
+                <label for="horaire" class="form-label">Horaires :</label>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Veuillez séléctionner un ou plusieurs horaire
+                    </button>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($horaires as $horaire): ?>
+                            <li class="form-check">
+                                <div class="form-check dropdown-item">
+                                <input class="form-check-input" type="checkbox" name="horaire[]" id="horaire_<?= $horaire['id_horaire'] ?>" value="<?= $horaire['id_horaire'] ?>">
+                                <label class="form-check-label" for="horaire_<?= $horaire['id_horaire'] ?>">
+                                    <?= $horaire['jour'] ?>: <?= $horaire['horaire_ouverture'] ?> - <?= $horaire['horaire_fermeture'] ?>
+                                </label>
+                            </div>
+                            </li>
+                            
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </article>
 
             <!-- Section pour ajouter des jours et heures -->
@@ -159,9 +217,10 @@ $modalites = $stmt->fetchAll();
 
             <button type="button" id="add-day" class="btn btn-secondary mt-4">Ajouter un autre jour</button>
             <button type="submit" class="btn btn-primary mt-4">Ajouter un centre</button>
-        </section>
-
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="Scripts/script.js"></script>
 </body>
 
