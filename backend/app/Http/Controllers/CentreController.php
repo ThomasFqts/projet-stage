@@ -9,7 +9,7 @@ class CentreController extends Controller
 {
     public function index()
     {
-        return response()->json(Centre::with('adresse', 'horaire', 'modalite')->get());
+        return response()->json(Centre::with('adresse', 'horaires', 'modalites')->get());
     }
 
     public function store(Request $request)

@@ -14,9 +14,10 @@ class ModaliteSeeder extends Seeder
     public function run(): void
     {
         DB::table('modalite')->insert([
-            ['id_modalite' => 1, 'nom_modalite' => 'Sur rendez-vous'],
-            ['id_modalite' => 2, 'nom_modalite' => 'Sans rendez-vous'],
-            ['id_modalite' => 3, 'nom_modalite' => 'En ligne'],
+            ['nom_modalite' => 'Hémodialyse en centre pour adulte'],
+            ['nom_modalite' => 'Hémodialyse en unité de dialyse médicalisée'],
+            ['nom_modalite' => 'Hémodialyse à domicile'],
+            ['nom_modalite' => 'Hémodialyse longue nocturne'],
         ]);
     }
 }
