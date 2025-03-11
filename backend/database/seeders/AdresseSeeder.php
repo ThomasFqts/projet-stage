@@ -13,7 +13,7 @@ class AdresseSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('adresse')->insert([
+        DB::table('adresses')->insert([
             ['code_postal' => 75001, 'ville' => 'Paris'],
             ['code_postal' => 69001, 'ville' => 'Lyon'],
             ['code_postal' => 13001, 'ville' => 'Marseille'],

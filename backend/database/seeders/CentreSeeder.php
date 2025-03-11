@@ -13,7 +13,7 @@ class CentreSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('centre')->insert([
+        DB::table('centres')->insert([
             [
                 'numero_finess' => 123456789,
                 'nom' => 'Centre de Santé Paris',

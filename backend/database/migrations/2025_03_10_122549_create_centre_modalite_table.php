@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('centre_modalite', function (Blueprint $table) {
             $table->integer('numero_finess');
             $table->integer('id_modalite');
-
-            // Clés étrangères
-            $table->foreign('numero_finess')->references('numero_finess')->on('centre')->onDelete('cascade');
-            $table->foreign('id_modalite')->references('id_modalite')->on('modalite')->onDelete('cascade');
+            $table->primary(['numero_finess', 'id_modalite']);
+            $table->foreign('numero_finess')->references('numero_finess')->on('centres')->onDelete('cascade');
+            $table->foreign('id_modalite')->references('id_modalite')->on('modalites')->onDelete('cascade');
         });
     }
 

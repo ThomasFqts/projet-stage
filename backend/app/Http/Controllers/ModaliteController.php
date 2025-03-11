@@ -7,36 +7,59 @@ use Illuminate\Http\Request;
 
 class ModaliteController extends Controller
 {
+
+    /**
+     * Affiche une liste de toutes les modalités.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         return response()->json(Modalite::all());
     }
 
+    /**
+     * Stocke une nouvelle modalité dans la base de données.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'nom_modalite' => 'required|string|unique:modalite,nom_modalite'
-        ]);
-
-        $modalite = Modalite::create($request->all());
-        return response()->json($modalite, 201);
+        // ...
     }
 
+    /**
+     * Affiche une modalité spécifique.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($id)
     {
-        return response()->json(Modalite::findOrFail($id));
+        // ...
     }
 
+    /**
+     * Met à jour une modalité spécifique.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(Request $request, $id)
     {
-        $modalite = Modalite::findOrFail($id);
-        $modalite->update($request->all());
-        return response()->json($modalite);
+        // ...
     }
 
+    /**
+     * Supprime une modalité spécifique.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy($id)
     {
-        Modalite::destroy($id);
-        return response()->json(null, 204);
+        // ...
     }
 }

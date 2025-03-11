@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('centre_horaire', function (Blueprint $table) {
             $table->integer('numero_finess');
             $table->integer('id_horaire');
-
-            // Clés étrangères
-            $table->foreign('numero_finess')->references('numero_finess')->on('centre')->onDelete('cascade');
-            $table->foreign('id_horaire')->references('id_horaire')->on('horaire')->onDelete('cascade');
+            $table->primary(['numero_finess', 'id_horaire']);
+            $table->foreign('numero_finess')->references('numero_finess')->on('centres')->onDelete('cascade');
+            $table->foreign('id_horaire')->references('id_horaire')->on('horaires')->onDelete('cascade');
         });
     }
 

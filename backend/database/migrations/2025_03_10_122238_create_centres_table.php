@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('centre', function (Blueprint $table) {
+        Schema::create('centres', function (Blueprint $table) {
             $table->integer('numero_finess')->primary();
             $table->string('nom');
             $table->string('site_web')->nullable();
@@ -20,9 +20,7 @@ return new class extends Migration
             $table->string('coordonnee_geographique')->nullable();
             $table->string('adresse');
             $table->integer('code_postal');
-
-            // Clé étrangère vers 'adresses'
-            $table->foreign('code_postal')->references('code_postal')->on('adresse')->onDelete('cascade');
+            $table->foreign('code_postal')->references('code_postal')->on('adresses')->onDelete('cascade');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('centre');
+        Schema::dropIfExists('centres');
     }
 };

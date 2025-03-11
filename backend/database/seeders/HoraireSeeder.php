@@ -13,7 +13,7 @@ class HoraireSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('horaire')->insert([
+        DB::table('horaires')->insert([
             ['jour' => 'Lundi', 'horaire_ouverture' => '08:00', 'horaire_fermeture' => '18:00'],
             ['jour' => 'Mardi', 'horaire_ouverture' => '08:00', 'horaire_fermeture' => '18:00'],
             ['jour' => 'Mercredi', 'horaire_ouverture' => '08:00', 'horaire_fermeture' => '18:00'],

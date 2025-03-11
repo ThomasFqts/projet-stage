@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Centre extends Model
 {
     use HasFactory;
 
-    protected $table = 'centre';
-    protected $primaryKey = 'numero_finess';
-    public $incrementing = false; // Le numéro FINESS est une clé primaire manuelle
     protected $fillable = [
         'numero_finess',
         'nom',
@@ -22,16 +19,22 @@ class Centre extends Model
         'adresse',
         'code_postal'
     ];
+    protected $primaryKey = 'numero_finess';
+    public $incrementing = false;
+    public $timestamps = false;
 
-    public function adresse() {
-        return $this->belongsTo(Adresse::class, 'code_postal', 'code_postal');
+    public function adresses()
+    {
+        return $this->belongsTo(Adresse::class, 'code_postal');
     }
 
-    public function horaires() {
+    public function horaires()
+    {
         return $this->belongsToMany(Horaire::class, 'centre_horaire', 'numero_finess', 'id_horaire');
     }
 
-    public function modalites() {
+    public function modalites()
+    {
         return $this->belongsToMany(Modalite::class, 'centre_modalite', 'numero_finess', 'id_modalite');
     }
 }

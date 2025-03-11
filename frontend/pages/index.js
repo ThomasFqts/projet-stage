@@ -1,35 +1,22 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import AddHoraire from '../components/AddHoraire';
+import { useState, useEffect } from 'react';
+import AddCentreForm from '../components/AddCentreForm';
+import { fetchCentres } from '../utils/api';
 
 export default function Home() {
-  const [horaires, setHoraires] = useState([]);
+  const [centres, setCentres] = useState([]);
 
-  const fetchHoraires = () => {
-    axios.get('http://127.0.0.1:8000/api/horaire')
-      .then(response => {
-        setHoraires(response.data);
-      })
-      .catch(error => {
-        console.error("Erreur lors de la récupération des horaires :", error);
-      });
+  const loadCentres = () => {
+    fetchCentres().then(setCentres).catch(console.error);
   };
 
   useEffect(() => {
-    fetchHoraires();
+    loadCentres();
   }, []);
 
   return (
     <div>
-      <h1>Horaires</h1>
-      <AddHoraire onHoraireAdded={fetchHoraires} />
-      <ul>
-        {horaires.map(horaire => (
-          <li key={horaire.id}>
-            {horaire.jour} : {horaire.horaire_ouverture} - {horaire.horaire_fermeture}
-          </li>
-        ))}
-      </ul>
+      <h1 className='text-center'>Bienvenue sur le formulaire d'ajout de centres de dialyse.</h1>
+      <AddCentreForm onCentreAdded={loadCentres} />
     </div>
   );
 }
