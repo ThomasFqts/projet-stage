@@ -30,15 +30,6 @@ class HoraireController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'jour' => 'required|string',
-        //     'horaire_ouverture' => 'required',
-        //     'horaire_fermeture' => 'required'
-        // ]);
-        
-        // $horaire = Horaire::create($request->all());
-        // return response()->json($horaire, 201);
-
         $validated = $request->validate([
             'jour' => 'required|string|max:20',
             'horaire_ouverture' => 'required|date_format:H:i',

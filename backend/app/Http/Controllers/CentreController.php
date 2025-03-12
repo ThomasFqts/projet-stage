@@ -78,33 +78,8 @@ class CentreController extends Controller
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
-
-        // // Vérifier si le code postal existe, sinon créer une nouvelle entrée dans Adresse
-        // $adresse = Adresse::firstOrCreate(
-        //     ['code_postal' => $validated['code_postal']],
-        //     ['ville' => $validated['ville'] ?? '']
-        // );
-
-        // // Création du centre avec le numéro FINESS
-        // $centre = Centre::create([
-        //     'numero_finess' => $validated['numero_finess'],
-        //     'nom' => $validated['nom'],
-        //     'site_web' => $validated['site_web'],
-        //     'numero_telephone' => $validated['numero_telephone'],
-        //     'adresse_mail' => $validated['adresse_mail'],
-        //     'coordonnee_geographique' => $validated['coordonnee_geographique'],
-        //     'adresse' => $validated['adresse'], // Adresse complète
-        //     'code_postal' => $adresse->code_postal, // Ville et code postal liés
-        // ]);
-
-        // // Associer les modalités et horaires
-        // $centre->modalites()->attach($validated['modalites']);
-        // $centre->horaires()->attach($validated['horaires']);
-
-        // return response()->json($centre->load('modalites', 'horaires'), 201);
     }
 
-    
 
     /**
      * Affiche les détails d'un centre spécifique avec ses adresses, horaires et modalités.
