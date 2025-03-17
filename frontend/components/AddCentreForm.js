@@ -3,6 +3,7 @@ import axios from 'axios';
 import { fetchFormData } from '../utils/api';
 
 export default function AddCentreForm({ }) {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const [formData, setFormData] = useState({
         numero_finess: '',
         nom: '',
@@ -48,7 +49,7 @@ export default function AddCentreForm({ }) {
     const addNewHoraire = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://127.0.0.1:8000/api/horaires', newHoraire);
+            const res = await axios.post(`${API_URL}/horaires`, newHoraire);
             setFormOptions(prev => ({
                 ...prev,
                 horaires: [...prev.horaires, res.data]
@@ -68,7 +69,7 @@ export default function AddCentreForm({ }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://127.0.0.1:8000/api/centres', formData);
+            await axios.post(`${API_URL}/centres`, formData);
             alert('Centre ajouté avec succès !');
             setFormData({
                 numero_finess: '',
