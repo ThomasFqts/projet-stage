@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { fetchFormData } from '../utils/api';
 
+// Composant principal pour ajouter un centre
 export default function AddCentreForm({ }) {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    // État pour les données du formulaire
     const [formData, setFormData] = useState({
         numero_finess: '',
         nom: '',
@@ -18,34 +21,45 @@ export default function AddCentreForm({ }) {
         horaires: [],
     });
 
+    // État pour les options du formulaire (adresses, modalités, horaires)
     const [formOptions, setFormOptions] = useState({
         adresses: [],
         modalites: [],
         horaires: []
     });
 
+    // État pour gérer l'ajout d'une nouvelle adresse
     const [nouvelleAdresse, setNouvelleAdresse] = useState(false);
+
+    // État pour gérer l'ajout d'un nouvel horaire
     const [nouvelHoraire, setNouvelHoraire] = useState(false);
+
+    // État pour les données du nouvel horaire
     const [newHoraire, setNewHoraire] = useState({ jour: '', horaire_ouverture: '', horaire_fermeture: '' });
 
+    // Charge les options du formulaire au montage du composant
     useEffect(() => {
         fetchFormData().then(setFormOptions).catch(console.error);
     }, []);
 
+    // Gére les changements dans les champs du formulaire
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Gére les changements dans les sélections multiples
     const handleSelectChange = (e) => {
         const { name, options } = e.target;
         const values = Array.from(options).filter(opt => opt.selected).map(opt => opt.value);
         setFormData({ ...formData, [name]: values });
     };
 
+    // Gére les changements dans les champs du nouvel horaire
     const handleNewHoraireChange = (e) => {
         setNewHoraire({ ...newHoraire, [e.target.name]: e.target.value });
     };
 
+    // Ajoute un nouvel horaire
     const addNewHoraire = async (e) => {
         e.preventDefault();
         try {
@@ -66,6 +80,7 @@ export default function AddCentreForm({ }) {
         }
     };
 
+    // Soumition du formulaire pour ajouter un centre
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -192,7 +207,7 @@ export default function AddCentreForm({ }) {
                                     </option>
                                 ))}
                             </select>
-                        
+
                             {/* Checkbox pour l'ajout d'un nouvel horaire */}
                             <label className="form-check-label text-white">Ajouter un nouvel horaire :</label>
                             <input type="checkbox" onChange={() => setNouvelHoraire(!nouvelHoraire)} />
