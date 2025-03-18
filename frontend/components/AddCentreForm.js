@@ -4,6 +4,8 @@ import { fetchFormData } from '../utils/api';
 
 // Composant principal pour ajouter un centre
 export default function AddCentreForm({ }) {
+    require('dotenv').config()
+    
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     // État pour les données du formulaire
