@@ -1,15 +1,56 @@
-import { useState, useEffect } from 'react';
+"use client"
+
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { fetchFormData } from '../utils/api';
+
+// Définition des interfaces pour les données du formulaire
+interface FormData {
+    numero_finess: string;
+    nom: string;
+    site_web: string;
+    numero_telephone: string;
+    adresse_mail: string;
+    coordonnee_geographique: string;
+    adresse: string;
+    code_postal: string;
+    ville: string;
+    modalites: number[];
+    horaires: number[];
+}
+
+interface Adresse {
+    code_postal: number;
+    ville: string;
+}
+
+interface Modalite {
+    id_modalite: number;
+    nom_modalite: string;
+}
+
+interface Horaire {
+    id_horaire: number;
+    jour: string;
+    horaire_ouverture: string;
+    horaire_fermeture: string;
+}
+
+// Interface des options pour les sélections
+interface FormOptions {
+    adresses: Adresse[];
+    modalites: Modalite[];
+    horaires: Horaire[];
+}
 
 // Composant principal pour ajouter un centre
 export default function AddCentreForm({ }) {
     require('dotenv').config()
-    
+
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     // État pour les données du formulaire
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         numero_finess: '',
         nom: '',
         site_web: '',
@@ -24,20 +65,24 @@ export default function AddCentreForm({ }) {
     });
 
     // État pour les options du formulaire (adresses, modalités, horaires)
-    const [formOptions, setFormOptions] = useState({
+    const [formOptions, setFormOptions] = useState<FormOptions>({
         adresses: [],
         modalites: [],
         horaires: []
     });
 
     // État pour gérer l'ajout d'une nouvelle adresse
-    const [nouvelleAdresse, setNouvelleAdresse] = useState(false);
+    const [nouvelleAdresse, setNouvelleAdresse] = useState<boolean>(false);
 
     // État pour gérer l'ajout d'un nouvel horaire
-    const [nouvelHoraire, setNouvelHoraire] = useState(false);
+    const [nouvelHoraire, setNouvelHoraire] = useState<boolean>(false);
 
     // État pour les données du nouvel horaire
-    const [newHoraire, setNewHoraire] = useState({ jour: '', horaire_ouverture: '', horaire_fermeture: '' });
+    const [newHoraire, setNewHoraire] = useState<{ jour: string; horaire_ouverture: string; horaire_fermeture: string }>({ 
+        jour: '', 
+        horaire_ouverture: '', 
+        horaire_fermeture: '' 
+    });
 
     // Charge les options du formulaire au montage du composant
     useEffect(() => {
@@ -45,24 +90,24 @@ export default function AddCentreForm({ }) {
     }, []);
 
     // Gére les changements dans les champs du formulaire
-    const handleChange = (e) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     // Gére les changements dans les sélections multiples
-    const handleSelectChange = (e) => {
+    const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const { name, options } = e.target;
         const values = Array.from(options).filter(opt => opt.selected).map(opt => opt.value);
         setFormData({ ...formData, [name]: values });
     };
 
     // Gére les changements dans les champs du nouvel horaire
-    const handleNewHoraireChange = (e) => {
+    const handleNewHoraireChange = (e: ChangeEvent<HTMLInputElement>) => {
         setNewHoraire({ ...newHoraire, [e.target.name]: e.target.value });
     };
 
     // Ajoute un nouvel horaire
-    const addNewHoraire = async (e) => {
+    const addNewHoraire = async (e: FormEvent) => {
         e.preventDefault();
         try {
             const res = await axios.post(`${API_URL}/horaires`, newHoraire);
@@ -83,7 +128,7 @@ export default function AddCentreForm({ }) {
     };
 
     // Soumition du formulaire pour ajouter un centre
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
             await axios.post(`${API_URL}/centres`, formData);
