@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\AdresseController;
 use App\Http\Controllers\HoraireController;
 use App\Http\Controllers\ModaliteController;
@@ -57,3 +59,11 @@ Route::post('/centre-modalite', [CentreModaliteController::class, 'store']);
 Route::delete('/centre-modalite/{numero_finess}/{id_modalite}', [CentreModaliteController::class, 'destroy']);
 
 Route::get('/form-data', [CentreController::class, 'getFormData']);
+
+Route::post('/log/frontend', function (Request $request) {
+    $errorData = $request->all();
+
+    Log::channel('frontend_errors')->error('Frontend Error', $errorData);
+
+    return response()->json(['message' => 'Log enregistré'], 200);
+});

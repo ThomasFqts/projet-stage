@@ -3,6 +3,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { fetchFormData } from '../utils/api';
+import logger from '@/utils/logger';
 
 // Définition des interfaces pour les données du formulaire
 interface FormData {
@@ -78,15 +79,19 @@ export default function AddCentreForm({ }) {
     const [nouvelHoraire, setNouvelHoraire] = useState<boolean>(false);
 
     // État pour les données du nouvel horaire
-    const [newHoraire, setNewHoraire] = useState<{ jour: string; horaire_ouverture: string; horaire_fermeture: string }>({ 
-        jour: '', 
-        horaire_ouverture: '', 
-        horaire_fermeture: '' 
+    const [newHoraire, setNewHoraire] = useState<{ jour: string; horaire_ouverture: string; horaire_fermeture: string }>({
+        jour: '',
+        horaire_ouverture: '',
+        horaire_fermeture: ''
     });
 
     // Charge les options du formulaire au montage du composant
     useEffect(() => {
-        fetchFormData().then(setFormOptions).catch(console.error);
+        fetchFormData()
+            .then(setFormOptions)
+            .catch((error) => {
+                logger.error({ message: error.message, stack: error.stack})
+            });
     }, []);
 
     // Gére les changements dans les champs du formulaire
@@ -122,8 +127,8 @@ export default function AddCentreForm({ }) {
             setNouvelHoraire(false);
             setNewHoraire({ jour: '', horaire_ouverture: '', horaire_fermeture: '' });
         } catch (error) {
-            console.error(error);
-            alert('Erreur lors de l’ajout du nouvel horaire.');
+            logger.error('Erreur lors de l\'ajout d\'une nouvelle horaire', error )
+            throw new Error('Erreur lors de l\'ajout d\'une nouvelle horaire')
         }
     };
 
@@ -147,8 +152,8 @@ export default function AddCentreForm({ }) {
                 horaires: [],
             });
         } catch (error) {
-            console.error('Erreur lors de l’ajout du centre:', error);
-            alert('Erreur : Vérifie que tous les champs sont valides.');
+            logger.error('Erreur lors de l’ajout du centre:', error);
+            throw new Error('Erreur lors de l\’ajout du centre. Vérifie que tous les champs sont valides.')
         }
     };
 
