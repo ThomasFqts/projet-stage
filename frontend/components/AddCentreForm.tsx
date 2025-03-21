@@ -4,6 +4,8 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import { fetchFormData } from '../utils/api';
 import logger from '@/utils/logger';
+import { TimeInput } from '@mantine/dates';
+import { TextInput, Button, Checkbox, MultiSelect, Select } from '@mantine/core';
 
 // Définition des interfaces pour les données du formulaire
 interface FormData {
@@ -90,7 +92,7 @@ export default function AddCentreForm({ }) {
         fetchFormData()
             .then(setFormOptions)
             .catch((error) => {
-                logger.error({ message: error.message, stack: error.stack})
+                logger.error({ message: error.message, stack: error.stack })
             });
     }, []);
 
@@ -127,7 +129,7 @@ export default function AddCentreForm({ }) {
             setNouvelHoraire(false);
             setNewHoraire({ jour: '', horaire_ouverture: '', horaire_fermeture: '' });
         } catch (error) {
-            logger.error('Erreur lors de l\'ajout d\'une nouvelle horaire', error )
+            logger.error('Erreur lors de l\'ajout d\'une nouvelle horaire', error)
             throw new Error('Erreur lors de l\'ajout d\'une nouvelle horaire')
         }
     };
@@ -157,6 +159,7 @@ export default function AddCentreForm({ }) {
         }
     };
 
+
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
@@ -166,111 +169,380 @@ export default function AddCentreForm({ }) {
 
                         {/* Numéro finess */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Numéro FINESS :</label>
-                            <input type="number" className="form-control bg-secondary text-white" name="numero_finess" placeholder="Numéro FINESS" value={formData.numero_finess} onChange={handleChange} required />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Numéro FINESS :"
+                                placeholder="Numéro FINESS"
+                                name="numero_finess"
+                                value={formData.numero_finess}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Nom */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Nom du Centre :</label>
-                            <input type="text" className="form-control bg-secondary text-white" name="nom" placeholder="Nom" value={formData.nom} onChange={handleChange} required />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Nom du centre :"
+                                placeholder="Nom"
+                                name="nom"
+                                value={formData.nom}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Site Web */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Site Web :</label>
-                            <input type="url" className="form-control bg-secondary text-white" name="site_web" placeholder="Site Web" value={formData.site_web} onChange={handleChange} />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Site Web :"
+                                placeholder="Site Web"
+                                name="site_web"
+                                value={formData.site_web}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Téléphone */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Téléphone :</label>
-                            <input type="text" className="form-control bg-secondary text-white" name="numero_telephone" placeholder="Téléphone" value={formData.numero_telephone} onChange={handleChange} required />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Téléphone :"
+                                placeholder="Téléphone"
+                                name="numero_telephone"
+                                value={formData.numero_telephone}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Email */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Email :</label>
-                            <input type="email" className="form-control bg-secondary text-white" name="adresse_mail" placeholder="Email" value={formData.adresse_mail} onChange={handleChange} required />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Email : "
+                                placeholder="Email"
+                                name="adresse_mail"
+                                value={formData.adresse_mail}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Coordonnées GPS */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Coordonnées GPS :</label>
-                            <input type="text" className="form-control bg-secondary text-white" name="coordonnee_geographique" placeholder="Coordonnées GPS" value={formData.coordonnee_geographique} onChange={handleChange} />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Coordonnées GPS : "
+                                placeholder="Coordonnées GPS"
+                                name="coordonnee_geographique"
+                                value={formData.coordonnee_geographique}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
                         {/* Adresse */}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Adresse Complète :</label>
-                            <input type="text" className="form-control bg-secondary text-white" name="adresse" placeholder="Rue, bâtiment..." value={formData.adresse} onChange={handleChange} required />
+                            <TextInput
+                                size="md"
+                                radius="md"
+                                label="Adresse : "
+                                placeholder="Rue, bâtiment..."
+                                name='adresse'
+                                value={formData.adresse}
+                                onChange={handleChange}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    }
+                                }}
+                            />
                         </div>
 
-                        {/* Ville & Code Postal */}
+                        {/* Ville & Code Postal + Nouvelle ville*/}
                         <div className="form-control bg-secondary">
-                            <label className="form-label text-white">Ville & Code Postal :</label>
-                            <select className="form-select bg-secondary text-white" name="code_postal" onChange={handleChange} disabled={nouvelleAdresse}>
-                                <option value="">Sélectionner une ville</option>
-                                {formOptions.adresses.map((adresse) => (
-                                    <option key={adresse.code_postal} value={adresse.code_postal}>
-                                        {adresse.ville} ({adresse.code_postal})
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                            <Select
+                                size="md"
+                                label="Ville & Code Postal :"
+                                placeholder="Sélectionner une ville"
+                                data={[
+                                    { value: "", label: "Sélectionner une ville" },
+                                    ...formOptions.adresses.map((adresse) => ({
+                                        value: adresse.code_postal.toString(),
+                                        label: `${adresse.ville} (${adresse.code_postal})`
+                                    }))
+                                ]}
+                                value={formData.code_postal.toString()}
+                                onChange={(value) => {
+                                    setFormData({
+                                        ...formData,
+                                        code_postal: value ? value : ""
+                                    });
+                                }}
+                                disabled={nouvelleAdresse}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    },
+                                }}
+                            />
 
-                        {/* Checkbox pour l'ajout d'une nouvelle ville et code postal */}
-                        <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input" onChange={() => setNouvelleAdresse(!nouvelleAdresse)} />
-                            <label className="form-check-label text-white">Ajouter une nouvelle ville</label>
-                        </div>
+                            <br />
 
-                        {/* Nouvelle Ville & Code Postal */}
-                        {nouvelleAdresse && (
-                            <>
-                                <div className="mb-3">
-                                    <input type="text" className="form-control bg-secondary text-white" name="ville" placeholder="Nouvelle Ville" onChange={handleChange} required />
-                                </div>
-                                <div className="mb-3">
-                                    <input type="number" className="form-control bg-secondary text-white" name="code_postal" placeholder="Code Postal" onChange={handleChange} required />
-                                </div>
-                            </>
-                        )}
+                            {/* Checkbox pour l'ajout d'une nouvelle ville et code postal */}
+                            <div className="mb-3 form-check">
+                                <Checkbox
+                                    size="md"
+                                    label="Ajouter une nouvelle ville"
+                                    onChange={() => setNouvelleAdresse(!nouvelleAdresse)}
+                                    styles={{
+                                        label: {
+                                            color: '#fff',
+                                        }
+                                    }}
+                                />
+                            </div>
+
+                            {/* Nouvelle Ville & Code Postal */}
+                            {nouvelleAdresse && (
+                                <>
+                                    <div className="mb-3">
+                                        <TextInput
+                                            size="md"
+                                            radius="md"
+                                            label="Ville"
+                                            placeholder="Nouvelle ville"
+                                            name='ville'
+                                            onChange={handleChange}
+                                            styles={{
+                                                input: {
+                                                    backgroundColor: '#6c757d',
+                                                    color: '#fff',
+                                                },
+                                                label: {
+                                                    color: '#fff',
+                                                }
+                                            }}
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <TextInput
+                                            size="md"
+                                            radius="md"
+                                            label="Code postal"
+                                            placeholder="Nouveau code postal"
+                                            name='code_postal'
+                                            onChange={handleChange}
+                                            styles={{
+                                                input: {
+                                                    backgroundColor: '#6c757d',
+                                                    color: '#fff',
+                                                },
+                                                label: {
+                                                    color: '#fff',
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </>
+                            )}
+                        </div>
 
                         {/* Modalités */}
                         <div className="mb-3">
-                            <label className="form-label text-white">Modalités :</label>
-                            <select className="form-select bg-secondary text-white" name="modalites" multiple onChange={handleSelectChange}>
-                                {formOptions.modalites.map((modalite) => (
-                                    <option key={modalite.id_modalite} value={modalite.id_modalite}>
-                                        {modalite.nom_modalite}
-                                    </option>
-                                ))}
-                            </select>
+                            <MultiSelect
+                                size="md"
+                                label="Modalités :"
+                                placeholder="Sélectionnez les modiltés"
+                                data={formOptions.modalites.map((modalite) => ({
+                                    value: modalite.id_modalite.toString(),
+                                    label: `${modalite.nom_modalite}`
+                                }))}
+                                value={formData.modalites.map(id => id.toString())}
+                                onChange={(values) => {
+                                    setFormData({
+                                        ...formData,
+                                        modalites: values.map(value => parseInt(value))
+                                    });
+                                }}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    },
+                                }}
+                            />
                         </div>
 
-                        {/* Liste Horaires */}
+                        {/* Liste Horaires  + Ajout nouvelle horaire */}
                         <div className="mb-3">
-                            <label className="form-label text-white">Horaires :</label>
-                            <select className="form-select bg-secondary text-white" name="horaires" multiple onChange={handleSelectChange}>
-                                {formOptions.horaires.map((horaire) => (
-                                    <option key={horaire.id_horaire} value={horaire.id_horaire}>
-                                        {horaire.jour} ({horaire.horaire_ouverture} - {horaire.horaire_fermeture})
-                                    </option>
-                                ))}
-                            </select>
+                            {/* Sélécteur d'horaire */}
+                            <MultiSelect
+                                size="md"
+                                label="Horaires :"
+                                placeholder="Sélectionnez les horaires"
+                                data={formOptions.horaires.map((horaire) => ({
+                                    value: horaire.id_horaire.toString(),
+                                    label: `${horaire.jour} (${horaire.horaire_ouverture} - ${horaire.horaire_fermeture})`
+                                }))}
+                                value={formData.horaires.map(id => id.toString())}
+                                onChange={(values) => {
+                                    setFormData({
+                                        ...formData,
+                                        horaires: values.map(value => parseInt(value))
+                                    });
+                                }}
+                                styles={{
+                                    input: {
+                                        backgroundColor: '#6c757d',
+                                        color: '#fff',
+                                    },
+                                    label: {
+                                        color: '#fff',
+                                    },
+                                }}
+                            />
+
+                            <br />
 
                             {/* Checkbox pour l'ajout d'un nouvel horaire */}
-                            <label className="form-check-label text-white">Ajouter un nouvel horaire :</label>
-                            <input type="checkbox" onChange={() => setNouvelHoraire(!nouvelHoraire)} />
+                            <Checkbox
+                                size="md"
+                                label="Ajouter un nouvel horaire :"
+                                onChange={() => setNouvelHoraire(!nouvelHoraire)}
+                                styles={{
+                                    label: {
+                                        color: '#fff', // Texte en blanc
+                                    },
+                                }}
+                            />
 
                             {/* Formulaire pour ajouter un nouvel horaire */}
                             {nouvelHoraire && (
-                                <div className='mb-3'>
-                                    <input className='form-control bg-secondary text-white' type="text" name="jour" placeholder="Jour" onChange={handleNewHoraireChange} />
-                                    <input className='form-control bg-secondary text-white' type="time" name="horaire_ouverture" onChange={handleNewHoraireChange} />
-                                    <input className='form-control bg-secondary text-white' type="time" name="horaire_fermeture" onChange={handleNewHoraireChange} />
-                                    <button className='btn btn-success' onClick={addNewHoraire}>Ajouter Horaire</button>
+                                <div className='mb-3 d-flex flex-column justify-content_center'>
+                                    {/* Jour */}
+                                    <TextInput
+                                        size="md"
+                                        radius="md"
+                                        label="Jour"
+                                        name="jour"
+                                        placeholder="Jour"
+                                        onChange={(event) => handleNewHoraireChange(event)}
+                                        styles={{
+                                            input: {
+                                                backgroundColor: '#6c757d', // Couleur de fond
+                                                color: '#fff', // Texte en blanc
+                                            },
+                                        }}
+                                    />
+
+                                    {/* Heure ouverture */}
+                                    <TimeInput
+                                        size="md"
+                                        radius="md"
+                                        name="horaire_ouverture"
+                                        onChange={(event) => handleNewHoraireChange(event)}
+                                        styles={{
+                                            input: {
+                                                backgroundColor: '#6c757d', // Couleur de fond
+                                                color: '#fff', // Texte en blanc
+                                            },
+                                        }}
+                                    />
+
+                                    {/* Heure Fermeture */}
+                                    <TimeInput
+                                        size="md"
+                                        radius="md"
+                                        name="horaire_fermeture"
+                                        onChange={(event) => handleNewHoraireChange(event)}
+                                        styles={{
+                                            input: {
+                                                backgroundColor: '#6c757d', // Couleur de fond
+                                                color: '#fff', // Texte en blanc
+                                            },
+                                        }}
+                                    />
+
+                                    {/* Bouton ajouter un horaire */}
+                                    <Button
+                                        size="md"
+                                        variant="filled"
+                                        color="#198754"
+                                        radius="md"
+                                        onClick={(event) => addNewHoraire(event)}>
+                                        Ajouter Horaire
+                                    </Button>
                                 </div>
                             )}
                         </div>

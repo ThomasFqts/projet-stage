@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/core": "^7.17.2",
+    "@mantine/dates": "^7.17.2",
+    "@mantine/form": "^7.17.2",
+    "@mantine/hooks": "^7.17.2",
     "axios": "^1.8.3",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "next": "15.2.3",
     "pino": "^9.6.0",
@@ -24,6 +29,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",
+    "postcss": "^8.5.3",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5"
   }
 }
