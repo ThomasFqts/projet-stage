@@ -153,6 +153,7 @@ export default function AddCentreForm({ }) {
                 modalites: [],
                 horaires: [],
             });
+            window.location.reload();
         } catch (error) {
             logger.error('Erreur lors de l’ajout du centre:', error);
             throw new Error('Erreur lors de l\’ajout du centre. Vérifie que tous les champs sont valides.')
