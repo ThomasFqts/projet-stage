@@ -1,13 +1,11 @@
+"use client"
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
-
-export const metadata = {
-  title: 'My Mantine app',
-  description: 'I have followed setup instructions carefully',
-};
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 export default function RootLayout({
   children,
@@ -25,7 +23,9 @@ export default function RootLayout({
         </link>
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <Provider store={store}>
+          <MantineProvider>{children}</MantineProvider>
+        </Provider>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
           crossOrigin="anonymous"></script>

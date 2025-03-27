@@ -1,4 +1,5 @@
 import axios from 'axios';
+import logger from './logger';
 
 // Récupération de l'URL de l'API à partir des variables d'environnement
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -45,11 +46,23 @@ export const fetchCentre = async (id: number): Promise<Centre> => {
 };
 
 // Fonction asynchrone pour récupérer les données du formulaire
-export const fetchFormData = async (): Promise<{
-    adresses: Adresse[];
-    modalites: Modalite[];
-    horaires: Horaire[];
-}> => {
-    const response = await axios.get(`${API_URL}/form-data`);
-    return response.data;
+export const fetchFormData = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+        const [adressesRes, modalitesRes, horairesRes] = await Promise.all([
+            axios.get(`${API_URL}/adresses`),
+            axios.get(`${API_URL}/modalites`),
+            axios.get(`${API_URL}/horaires`),
+        ]);
+
+        return {
+            adresses: adressesRes.data,
+            modalites: modalitesRes.data,
+            horaires: horairesRes.data,
+        };
+    } catch (error) {
+        logger.error('Erreur lors du chargement des données du formulaire', error);
+        throw error;
+    }
 };
