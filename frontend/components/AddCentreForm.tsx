@@ -6,11 +6,12 @@ import logger from '@/utils/logger';
 import { TextInput } from '@mantine/core';
 import { setFormOptions } from '@/app/store/formOptionsSlice';
 import { RootState } from '@/app/store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormHandlers } from '@/app/store/fonctions';
 import { VilleCP } from './villecp';
 import { Modalites } from './modalités';
 import { Horaires } from './horaires';
+import { dispatch } from '@/app/dispatchHelper';
 
 // Composant principal pour ajouter un centre
 export default function AddCentreForm({ }) {
@@ -21,7 +22,6 @@ export default function AddCentreForm({ }) {
         handleSubmit,
     } = useFormHandlers();
     const formData = useSelector((state: RootState) => state.formData);
-    const dispatch = useDispatch();
     
     // Charge les options du formulaire au montage du composant
     useEffect(() => {

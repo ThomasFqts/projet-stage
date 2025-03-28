@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface FormData {
-    numero_finess: string;
-    nom: string;
-    site_web: string;
-    numero_telephone: string;
-    adresse_mail: string;
-    coordonnee_geographique: string;
-    adresse: string;
-    code_postal: string;
-    ville: string;
-    modalites: number[];
-    horaires: number[];
-}
+import { FormData } from './types';
 
 const initialState: FormData = {
     numero_finess: '',

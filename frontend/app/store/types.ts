@@ -35,3 +35,20 @@ export interface FormOptions {
     modalites: Modalite[];
     horaires: Horaire[];
 }
+
+export interface Centre {
+    numero_finess: number;
+    nom: string;
+    site_web?: string;
+    numero_telephone: string;
+    adresse_mail: string;
+    coordonnee_geographique?: string;
+    adresse: string;
+    code_postal: number;
+}
+
+export interface NewHoraire {
+    jour: string;
+    horaire_ouverture: string;
+    horaire_fermeture: string;
+}

@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface NewHoraire {
-    jour: string;
-    horaire_ouverture: string;
-    horaire_fermeture: string;
-}
+import { NewHoraire } from './types';
 
 const initialState: NewHoraire = {
     jour: '',

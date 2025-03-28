@@ -1,15 +1,15 @@
+import { dispatch } from "@/app/dispatchHelper";
 import { useFormHandlers } from "@/app/store/fonctions";
 import { setFormData } from "@/app/store/formDataSlice";
 import { setNouvelleAdresse } from "@/app/store/nouvelleAdresseSlice";
 import { RootState } from "@/app/store/store";
 import { Select, Checkbox, TextInput } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const VilleCP = () => {
     const formData = useSelector((state: RootState) => state.formData);
     const formOptions = useSelector((state: RootState) => state.formOptions);
     const nouvelleAdresse = useSelector((state: RootState) => state.nouvelleAdresse);
-    const dispatch = useDispatch();
     const handleChange = useFormHandlers().handleChange;
     return (
         // Ville & Code Postal + Nouvelle ville & code postal

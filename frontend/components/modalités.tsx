@@ -1,12 +1,12 @@
+import { dispatch } from "@/app/dispatchHelper";
 import { setFormData } from "@/app/store/formDataSlice";
 import { RootState } from "@/app/store/store";
 import { MultiSelect } from "@mantine/core";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const Modalites = () => {
     const formData = useSelector((state: RootState) => state.formData);
     const formOptions = useSelector((state: RootState) => state.formOptions);
-    const dispatch = useDispatch();
     return (
         /* Modalités */
         <div className="mb-3">

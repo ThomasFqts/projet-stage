@@ -5,14 +5,13 @@ import { setFormData, resetFormData } from "./formDataSlice";
 import { setFormOptions } from "./formOptionsSlice";
 import { setNewHoraire, resetNewHoraire } from "./newHoraireSlice";
 import { setNouvelHoraire } from "./nouvelHoraireSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "./store";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { dispatch } from "../dispatchHelper";
+import { API_URL } from "@/api_url";
 
 // Hook personnalisé pour gérer les changements dans les champs du formulaire
 export const useFormHandlers = () => {
-    const dispatch = useDispatch();
     const formData = useSelector((state: RootState) => state.formData);
     const formOptions = useSelector((state: RootState) => state.formOptions);
     const newHoraire = useSelector((state: RootState) => state.newHoraire);

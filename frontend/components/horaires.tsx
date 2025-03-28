@@ -1,17 +1,17 @@
+import { dispatch } from "@/app/dispatchHelper";
 import { useFormHandlers } from "@/app/store/fonctions";
 import { setFormData } from "@/app/store/formDataSlice";
 import { setNouvelHoraire } from "@/app/store/nouvelHoraireSlice";
 import { RootState } from "@/app/store/store";
 import { MultiSelect, Checkbox, TextInput, Button } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export const Horaires = () => {
     const formData = useSelector((state: RootState) => state.formData);
     const formOptions = useSelector((state: RootState) => state.formOptions);
     const nouvelHoraire = useSelector((state: RootState) => state.nouvelHoraire);
     const { handleNewHoraireChange, addNewHoraire } = useFormHandlers();
-    const dispatch = useDispatch();
     return (
         /* Liste Horaires  + Ajout nouvelle horaire */
         <div className="mb-3">
