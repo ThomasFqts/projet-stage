@@ -31,14 +31,14 @@ class CentreController extends Controller
     {
         $validated = $request->validate([
             'numero_finess' => 'required|integer|unique:centres,numero_finess',
-            'nom' => 'required|string|max:255',
+            'nom' => 'required|string|max:255|regex:/^[^\'";><]*$/',
             'site_web' => 'nullable|url',
             'numero_telephone' => 'required|string|max:20',
             'adresse_mail' => 'required|email',
-            'coordonnee_geographique' => 'nullable|string',
-            'adresse' => 'required|string', // Adresse complète (ex: "1 rue de Paris")
+            'coordonnee_geographique' => 'nullable|string|regex:/^[^\'";><]*$/',
+            'adresse' => 'required|string|regex:/^[^\'";><]*$/', // Adresse complète (ex: "1 rue de Paris")
             'code_postal' => 'required|integer',
-            'ville' => 'nullable|string', // Ville si ajout manuel
+            'ville' => 'nullable|string|regex:/^[^\'";><]*$/', // Ville si ajout manuel
             'modalites' => 'array|required',
             'modalites.*' => 'integer|exists:modalites,id_modalite',
             'horaires' => 'array|required',

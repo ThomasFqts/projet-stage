@@ -31,7 +31,7 @@ class HoraireController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'jour' => 'required|string|max:20',
+            'jour' => 'required|string|max:20|regex:/^[^\'";><]*$/',
             'horaire_ouverture' => 'required|date_format:H:i',
             'horaire_fermeture' => 'required|date_format:H:i|after:horaire_ouverture',
         ]);

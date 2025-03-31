@@ -28,7 +28,7 @@ class AdresseController extends Controller
     {
         $request->validate([
             'code_postal' => 'required|integer|unique:adresse,code_postal',
-            'ville' => 'required|string'
+            'ville' => 'required|string|regex:/^[^\'";><]*$/'
         ]);
 
         $adresse = Adresse::create($request->all());
