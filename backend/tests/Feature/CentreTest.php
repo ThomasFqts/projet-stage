@@ -67,7 +67,7 @@ class CentreTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function rejet_de_l_injection_sql_dans_le_nom()
+    public function rejet_de_l_injection_sql()
     {
 
         $adresse = Adresse::factory()->create();
@@ -91,7 +91,7 @@ class CentreTest extends TestCase
         $response->assertStatus(422);
     }
 
-    public function rejet_d_une_tentative_de_xss_dans_le_nom()
+    public function rejet_d_une_tentative_de_xss()
     {
         $adresse = Adresse::factory()->create();
         $modalite = \App\Models\Modalite::factory()->create();

@@ -27,7 +27,7 @@ class AdresseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code_postal' => 'required|integer|unique:adresse,code_postal',
+            'code_postal' => 'required|integer|unique:adresses,code_postal',
             'ville' => 'required|string|regex:/^[^\'";><]*$/'
         ]);
 
