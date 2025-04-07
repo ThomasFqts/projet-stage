@@ -14,6 +14,35 @@ import { Horaires } from './horaires';
 import { dispatch } from '@/app/dispatchHelper';
 
 // Composant principal pour ajouter un centre
+/**
+ * AddCentreForm Component
+ *
+ * Ce composant React permet d'ajouter un centre en remplissant un formulaire.
+ * Il utilise des champs de saisie pour collecter des informations telles que :
+ * - Numéro FINESS
+ * - Nom du centre
+ * - Site Web
+ * - Téléphone
+ * - Email
+ * - Coordonnées GPS
+ * - Adresse
+ *
+ * Le formulaire est stylisé avec des classes Bootstrap et des styles personnalisés
+ * pour une apparence cohérente. Les données du formulaire sont gérées via un état global
+ * (Redux) et des gestionnaires d'événements fournis par un hook personnalisé `useFormHandlers`.
+ *
+ * Lors du montage du composant, les options nécessaires au formulaire sont chargées
+ * via une requête asynchrone et stockées dans l'état global.
+ *
+ * Ce composant inclut également des sous-composants pour gérer des champs spécifiques :
+ * - `VilleCP` : Gestion de la ville et du code postal.
+ * - `Modalites` : Gestion des modalités spécifiques.
+ * - `Horaires` : Gestion des horaires d'ouverture.
+ *
+ * @component
+ * @example
+ * <AddCentreForm />
+ */
 export default function AddCentreForm({ }) {
     require('dotenv').config()
 
