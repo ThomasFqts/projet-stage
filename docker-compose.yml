@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: laravel-app
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: nextjs-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # volumes:
+    #   - ./frontend:/app
+    working_dir: /app
+    command: ["npm", "run", "dev"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
