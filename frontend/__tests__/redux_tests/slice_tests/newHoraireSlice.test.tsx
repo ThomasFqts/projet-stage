@@ -1,6 +1,6 @@
-import { setNewHoraire, resetNewHoraire } from "@/app/store/newHoraireSlice";
-import { NewHoraire } from "@/app/store/types";
-import newHoraireReducer from "@/app/store/newHoraireSlice";
+import { setNewHoraire, resetNewHoraire } from "@/app/redux/newHoraireSlice";
+import { NewHoraire } from "@/app/redux/types";
+import newHoraireReducer from "@/app/redux/newHoraireSlice";
 
 describe('newHoraireSlice', () => {
     const initialState: NewHoraire = {

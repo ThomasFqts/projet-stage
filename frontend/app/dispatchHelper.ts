@@ -1,3 +1,3 @@
-import { store } from "./store/store";
+import { store } from "./redux/store";
 
 export const dispatch = store.dispatch;

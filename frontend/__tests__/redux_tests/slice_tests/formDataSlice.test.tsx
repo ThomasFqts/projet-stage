@@ -1,6 +1,6 @@
-import { setFormData, resetFormData } from '@/app/store/formDataSlice';
-import { FormData } from '@/app/store/types';
-import formDataReducer from '@/app/store/formDataSlice';
+import { setFormData, resetFormData } from '@/app/redux/formDataSlice';
+import { FormData } from '@/app/redux/types';
+import formDataReducer from '@/app/redux/formDataSlice';
 
 describe('formDataSlice', () => {
     const initialState: FormData = {

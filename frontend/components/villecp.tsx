@@ -1,8 +1,8 @@
 import { dispatch } from "@/app/dispatchHelper";
-import { useFormHandlers } from "@/app/store/fonctions";
-import { setFormData } from "@/app/store/formDataSlice";
-import { setNouvelleAdresse } from "@/app/store/nouvelleAdresseSlice";
-import { RootState } from "@/app/store/store";
+import { useFormHandlers } from "@/app/redux/fonctions";
+import { setFormData } from "@/app/redux/formDataSlice";
+import { setNouvelleAdresse } from "@/app/redux/nouvelleAdresseSlice";
+import { RootState } from "@/app/redux/store";
 import { Select, Checkbox, TextInput } from "@mantine/core";
 import { useSelector } from "react-redux";
 

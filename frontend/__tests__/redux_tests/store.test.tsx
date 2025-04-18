@@ -1,4 +1,4 @@
-import { store } from "@/app/store/store";
+import { store } from "@/app/redux/store";
 
 describe('Redux Store', () => {
     it('should initialize with the correct reducers', () => {

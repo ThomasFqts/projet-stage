@@ -1,6 +1,6 @@
-import { setFormOptions, resetFormOptions } from "@/app/store/formOptionsSlice";
-import { FormOptions } from "@/app/store/types";
-import formOptionsReducer from "@/app/store/formOptionsSlice";
+import { setFormOptions, resetFormOptions } from "@/app/redux/formOptionsSlice";
+import { FormOptions } from "@/app/redux/types";
+import formOptionsReducer from "@/app/redux/formOptionsSlice";
 
 describe('formOptionsSlice', () => {
     const initialState: FormOptions = {

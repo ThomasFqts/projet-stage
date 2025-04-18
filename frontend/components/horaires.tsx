@@ -1,8 +1,8 @@
 import { dispatch } from "@/app/dispatchHelper";
-import { useFormHandlers } from "@/app/store/fonctions";
-import { setFormData } from "@/app/store/formDataSlice";
-import { setNouvelHoraire } from "@/app/store/nouvelHoraireSlice";
-import { RootState } from "@/app/store/store";
+import { useFormHandlers } from "@/app/redux/fonctions";
+import { setFormData } from "@/app/redux/formDataSlice";
+import { setNouvelHoraire } from "@/app/redux/nouvelHoraireSlice";
+import { RootState } from "@/app/redux/store";
 import { MultiSelect, Checkbox, TextInput, Button } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { useSelector } from "react-redux";

@@ -1,6 +1,6 @@
 import { dispatch } from "@/app/dispatchHelper";
-import { setFormData } from "@/app/store/formDataSlice";
-import { RootState } from "@/app/store/store";
+import { setFormData } from "@/app/redux/formDataSlice";
+import { RootState } from "@/app/redux/store";
 import { MultiSelect } from "@mantine/core";
 import { useSelector } from "react-redux";
 

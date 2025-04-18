@@ -1,6 +1,6 @@
 import axios from 'axios';
 import logger from './logger';
-import { Centre } from '@/app/store/types';
+import { Centre } from '@/app/redux/types';
 import { API_URL } from '@/api_url';
 
 // Récupération de l'URL de l'API à partir des variables d'environnement
